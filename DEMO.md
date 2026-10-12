@@ -58,8 +58,12 @@ Review the branch review/with-keep-the-why against main before I merge it.
 
 **Show afterwards:** the entry in `context/forwarding.md`, and on GitHub the pull request from the `with-keep-the-why` branch with the review as a comment.
 
-## What the agents said in the test runs
+## What to expect, measured
 
-Filled from the runs made while preparing this repository; verbatim excerpts, so the recording has a fallback if a live take goes differently. Claude Code 2.1.296, Claude Sonnet 5.5, 2026-10-12.
+Experiment 1 is the prompt of the [rejected-change experiment](https://github.com/oliver-zehentleitner/keep-the-why/tree/main/experiments/rejected-change) in the Keep the Why repository, run on 2026-09-08 with Claude Code and Claude Sonnet 5, ten fresh sessions per arm on the same `retry_with_jitter`: with the entry, 10 of 10 sessions declined to simplify; without it, 7 of 10 offered the rejected change as an option. The transcripts are in that directory. Experiments 2 and 3 were not run in bulk; the control answer varies between sessions, so record both takes and keep the one that shows the difference — and say in the description that it is one take.
 
-(to be filled)
+Reset between takes, inside the directory you ran in:
+
+```sh
+git checkout -- . && git clean -fd
+```
