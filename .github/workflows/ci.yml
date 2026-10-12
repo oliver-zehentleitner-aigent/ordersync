@@ -1,9 +1,8 @@
 ---
 name: ci
 
-# Tests in both directories, keep-the-why-lint on the one with context/, and
-# on main the dashboard of with-keep-the-why/ exported to GitHub Pages. Pages
-# must be set to "GitHub Actions" as its source once.
+# Tests, keep-the-why-lint, and on main the Keep the Why dashboard exported to
+# GitHub Pages. Pages must be set to "GitHub Actions" as its source once.
 
 on:
   push:
@@ -22,9 +21,6 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: read
-    strategy:
-      matrix:
-        directory: [without-keep-the-why, with-keep-the-why]
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7
         with:
@@ -33,7 +29,6 @@ jobs:
         with:
           python-version: "3.13"
       - run: python -m unittest -q
-        working-directory: ${{ matrix.directory }}
 
   lint:
     runs-on: ubuntu-latest
@@ -44,7 +39,7 @@ jobs:
         with:
           persist-credentials: false
       - uses: astral-sh/setup-uv@1c37ad07a6a961277cf70c0d37d6f313000f5884  # v10.3.0
-      - run: uvx --from keep-the-why-lint==0.20.2.0 ktw-lint with-keep-the-why
+      - run: uvx --from keep-the-why-lint==0.20.2.0 ktw-lint .
 
   dashboard:
     runs-on: ubuntu-latest
@@ -56,9 +51,9 @@ jobs:
           fetch-depth: 0  # the dashboard dates entries by Git history
           persist-credentials: false
       - uses: astral-sh/setup-uv@1c37ad07a6a961277cf70c0d37d6f313000f5884  # v10.3.0
-      - name: Export the Keep the Why dashboard of with-keep-the-why/
+      - name: Export the Keep the Why dashboard
         run: |
-          uvx --from keep-the-why-dashboard==0.11.0 ktw-dashboard --export site/keep-the-why-dashboard with-keep-the-why
+          uvx --from keep-the-why-dashboard==0.11.0 ktw-dashboard --export site/keep-the-why-dashboard .
           test -s site/keep-the-why-dashboard/index.html
       - uses: actions/upload-pages-artifact@fc324d3547104276b827a68afc52ff2a11cc49c9  # v5
         with:
