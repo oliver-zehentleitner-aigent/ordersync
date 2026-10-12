@@ -21,7 +21,7 @@ class ForwardPendingTests(unittest.TestCase):
             delivered = forward_pending(store, post=fake_post)
         self.assertEqual(delivered, 2)
         self.assertEqual(store.pending(), [])
-        self.assertEqual(posted, [("evt_1", 30), ("evt_2", 30)])
+        self.assertEqual(posted, [("evt_1", 5), ("evt_2", 5)])
 
 
 if __name__ == "__main__":
