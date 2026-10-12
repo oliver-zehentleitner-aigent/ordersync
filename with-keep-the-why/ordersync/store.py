@@ -27,6 +27,8 @@ class Event:
 class EventStore:
     def __init__(self, path=":memory:"):
         self._conn = sqlite3.connect(path)
+        self._conn.execute("PRAGMA journal_mode=WAL")  # faster writes
+        self._conn.execute("PRAGMA synchronous=OFF")
         self._conn.executescript(SCHEMA)
 
     def record(self, event):
