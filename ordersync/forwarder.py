@@ -8,7 +8,7 @@ from dataclasses import dataclass, field
 from .retry import retry_with_jitter
 
 ORDER_API_URL = "https://orders.example.com/v2/events"
-TIMEOUT = 30
+TIMEOUT = 5  # fail fast; a slow order API must not stall the queue
 
 
 @dataclass
